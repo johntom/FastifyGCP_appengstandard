@@ -1,0 +1,24 @@
+main {
+  display: flex;
+  justify-content: center;
+}
+.todo-list {
+  outline: 4px dashed red;
+  background-color: #f5f5f5;
+}
+
+.todo-list, .todo-list > fieldset {
+  border-radius: 1em;
+}
+.flow > * + * {
+  margin-top: 1em;
+}
+.padding-1em {
+  padding: 1em;
+}
+.min-width-50 {
+  min-width: 50ch;
+}
+.full-width {
+  width: 100vw;
+}

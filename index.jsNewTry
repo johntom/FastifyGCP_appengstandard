@@ -1,0 +1,373 @@
+'use strict'
+const util = require('util')
+const moment = require('moment');
+const path = require('path')
+const fs = require('fs-extra'); // fs')
+const { default: fastifyAutoload } = require('fastify-autoload');
+const drive = process.env.drive;
+const database = process.env.database;
+//localhost:8080/apiKnex
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+async function getNextNo(qrystr) {
+  // console.log('======getNextNo: ');
+  return new Promise(async function (resolve, reject) {
+    let qrystrna = util.format(`SELECT  GEN_ID(  "GEN_WorkerMedicareNF_ID",1 ) na FROM RDB$DATABASE`);
+    await (Firebird.attach(options, function (err, db) {
+      if (err)
+        //  throw err;
+        // console.log('errDB ', err) //[0].id);
+      // db = DATABASE
+      db.query(qrystrna, function (err, results) {
+        db.detach();
+        if (err) {
+          //  throw err;
+          // console.log('err ', err)
+        } else {
+          // console.log('=1=====getNextNo::_:: ', results[0])
+          // let  nextaa = results[0]
+          //  // console.log('=2=====nextaa::_:: ', nextaa.NA)  //na.low_)
+          // console.log('=3=====getNextNo::_:: ', results[0].NA)  //na.low_)
+          resolve(results[0].NA)
+          //   resolve(999999)
+        }
+      })
+    }))
+
+  })
+}
+
+async function runprocess(fastify) {
+  // let query = req.query;// {};
+  // let qrystmt = query
+  const databasepath = `${drive}:/firebird/data/brm/${database}`
+  let qrystr = {}
+  const ts = fastify.timestamp()// get a plugin
+  let tt1 = new Date(ts)
+  let nextavail = 0
+  let timethen = moment().format('MM/DD/YYYY HH:mm:ss')// "04/09/2013 15:00:00";
+  // console.log('/nin hello===================io======', timethen)//,ttm1)
+
+  qrystr.select = ` * `
+  // tyoe sort,ID
+  qrystr.ordfield = `ID`
+  qrystr.ordsort = `asc`
+  qrystr.table = 'VIEWWORKERMEDICARE';//"WorkerMedicare"'
+  // ID, HICNNUMBER, TAXID, LASTNAME, FIRSTNAME, MI, DOB, GENDER,RESPONSE, PREDCN1, PREDCN2, "FOUND", TOWNID,WORKERID, DESCRIPTION, WMTYPE
+  // let filter = { 'found': 1, 'WMTYPE': 'W' }; // ALSO C FOR LIABILTY CLAIMANT
+  let filter = { 'found': 1, 'WMTYPE': 'W' }; // get w and c
+  qrystr.filter = JSON.stringify(filter)
+  qrystr.database = databasepath;// 'd:/firebird/data/brm/bergen.fdb'
+  const fbk = await fastify.knexdata(qrystr) // call plugin
+  // console.log('fbk', fbk.length)   // WorkerMedicareNF  // WorkerMedicare
+  let ct = 0
+  for await (const workerMedicare of fbk) {
+    ct++
+    workerMedicare.DESCRIPTION = " "
+    let qrystr2 = {}
+    qrystr2.select = `  * `
+    qrystr2.ordfield = 'claimid';
+    qrystr2.ordsort = `"asc"`
+    let filetype = workerMedicare.wmtype.trim();
+    let filter2
+    qrystr2.database = databasepath;// 'd:/firebird/data/brm/bergen.fdb'
+    let fbk2
+    let filterand, filterwhere, filterwhereror
+    //  if (filetype === 'W') {
+    // W = Worker for 
+    qrystr2.table = 'VIEWWCMEDICARESELECT';
+    //  let filterand = { 'WORKERID': workerMedicare.workerid }  /// not used  --------- Found 0=New 1 = Legacy
+    //  qrystr2.filterand = JSON.stringify(filterand)
+    // 'MEDICAREREPORTABLE': 0 or nulll or -1
+    let filter = { 'MEDICAREREPORTABLE': 0, 'WMTYPE': 'W', 'WORKERID': workerMedicare.workerid }; // get w and c
+    qrystr.filter = JSON.stringify(filter)
+    qrystr.database = databasepath;// 'd:/firebird/data/brm/bergen.fdb'
+    const fbk2 = await fastify.knexdata(qrystr) // call plugin
+    // console.log('fbk2', fbk2.length)
+
+    let ctt = 0
+
+    for await (const viewrec of fbk2) {
+      ctt++
+      let UPDATECT = 0;
+      let insertstmt;
+      let legacy;
+      let qrystrup;
+      let qrystrins;
+      let updatestmt;
+      //let tf = (viewrec.medicarereportable === -1 && viewrec.cmscomplete === 0);
+      // (tf) ? legacy = 1 : legacy = 0;
+      legacy = 0;
+      // VIEWWCMEDICARESELECT (WCID, WCID_STRING, CLAIMID, STATUS, WORKERID, 
+      // WORKERNAME, WORKERSS, CLOSED, INDEMNITYTODATE, MEDICAL_SUM, HICN, MEDICARE_RECIP,
+      // INDEMNITY_SUM, DATEMARKEDREPORTABLE, MEDICAREREPORTABLE, CMSCOMPLETE
+      if ((viewrec.medical_sum >= 750) && (((viewrec.statusno = 1) || (viewrec.statusno = 3)) || (viewrec.closed >= '1/1/2010'))) {
+        nextavail++
+        UPDATECT++;
+        qrystrup = {};
+        let insertstmt
+        let today = moment().format('MM/DD/YYYY')
+        updatestmt = { '"MedicareReportable"': -1, '"Date Marked Reportable"': today, '"TestFlag"': 201 }
+        qrystrup.updatestmt = JSON.stringify(updatestmt)
+        qrystrup.wherecol = 'ID';
+        qrystrup.whereval = viewrec.wcid;
+        qrystrup.wheresign = '=';//6;
+        qrystrup.table = '"WComp"'
+        qrystrup.database = databasepath;//'d:/firebird/data/brm/bergen.fdb'
+        const ufbk1 = await fastify.updatedata(qrystrup)
+      }
+      qrystrins = {};
+
+    }
+  }
+
+  filter = { 'found': 1, 'WMTYPE': 'C' }; //CLAIMANT
+  qrystr.filter = JSON.stringify(filter)
+
+  const fbk_1 = await fastify.knexdata(qrystr)
+  ctt = 0
+
+  for await (const viewrec of fbk1_1) {
+    ctt++
+    let UPDATECT = 0;
+    let insertstmt;
+    let legacy;
+    let qrystrup;
+    let qrystrins;
+    let updatestmt;
+
+    //qrystr2.table = 'VIEWLIABILITYMEDICARESELECT';
+    filter2 = { 'WORKERID': workerMedicare.workerid, 'MEDICAREREPORTABLE': 0 }  ///was null find all workers  Found 0=New 1 = Legacy
+    qrystr2.filter = JSON.stringify(filter2)
+    let fbk2_2 = await fastify.knexdata(qrystr2)
+
+    ctt = 0
+
+    for await (const viewrec of fbk2_2) {
+      ctt++
+      let UPDATECT = 0;
+
+      let insertstmt;
+      let legacy;
+      let qrystrup;
+      let qrystrins;
+      let updatestmt;
+      legacy = 0;
+      qrystrup = {};
+      let today = moment().format('MM/DD/YYYY')
+      // if (viewrec["Date Marked Reportable"] ===undefined  || viewrec["Date Marked Reportable"] ==='' ){
+
+      // medicarereportable:0
+      // medicare_recip:1
+      // datemarkedreportable:null
+      updatestmt = { '"MedicareReportable"': -1, '"Date Marked Reportable"': today, '"TestFlag"': 200 }
+      qrystrup.updatestmt = JSON.stringify(updatestmt)
+      qrystrup.wherecol = 'ID';
+      qrystrup.whereval = viewrec.wcid;
+      qrystrup.wheresign = '=';//6;
+      qrystrup.table = '"Liability"'
+      qrystrup.database = databasepath;//'d:/firebird/data/brm/bergen.fdb'
+      const ufbk2 = await fastify.updatedata(qrystrup)
+
+
+
+
+
+    }
+
+  }
+
+
+  filter = { 'found': 1, 'WMTYPE': null }; 
+  qrystr.filter = JSON.stringify(filter)
+
+  const fbk1_3 = await fastify.knexdata(qrystr)
+  ctt = 0
+
+
+  for await (const viewrec of fbk1_3) {
+    ctt++
+    let UPDATECT = 0;
+    let insertstmt;
+    let legacy;
+    let qrystrup;
+    let qrystrins;
+    let updatestmt;
+    filter2 = { 'WORKERID': workerMedicare.workerid };//, 'MEDICAREREPORTABLE': 0 }  ///was null find all workers  Found 0=New 1 = Legacy
+    qrystr2.filter = JSON.stringify(filter2)
+    let fbk1_4 = await fastify.knexdata(qrystr2)
+    ctt = 0
+    for await (const viewrec of fbk1_4) {
+      ctt++
+      let UPDATECT = 0;
+      let insertstmt;
+      let legacy;
+      let qrystrup;
+      let qrystrins;
+      let updatestmt;
+      legacy = 0;
+      qrystrup = {};
+      let today = moment().format('MM/DD/YYYY')
+      if (((viewrec.idemnity_sum >= 5000) && (((viewrec.statusno = 1) || (viewrec.statusno = 3)) || (viewrec.closed >= '10/1/2010' && viewrec.closed <= '3/30/2010')))
+            || ((viewrec.idemnity_sum >= 2000) && (((viewrec.statusno = 3) || (viewrec.closed >= '10/1/2010' && viewrec.closed <= '9/30/2013'))))
+            || (((viewrec.idemnity_sum >= 300) && (((viewrec.statusno = 1) || (viewrec.statusno = 3)) || (viewrec.closed >= '10/1/2014'))))
+          ) {
+      updatestmt = { '"MedicareReportable"': -1, '"Date Marked Reportable"': today, '"TestFlag"': 200 }
+      qrystrup.updatestmt = JSON.stringify(updatestmt)
+      qrystrup.wherecol = 'ID';
+      qrystrup.whereval = viewrec.wcid;
+      qrystrup.wheresign = '=';//6;
+      qrystrup.table = '"Liability"'
+      qrystrup.database = databasepath;//'d:/firebird/data/brm/bergen.fdb'
+      const ufbk2 = await fastify.updatedata(qrystrup)
+  
+
+
+
+
+  
+      //filetype ===  = null
+      if (((viewrec.idemnity_sum >= 5000) && (((viewrec.statusno = 1) || (viewrec.statusno = 3)) || (viewrec.closed >= '10/1/2010' && viewrec.closed <= '3/30/2010')))
+        || ((viewrec.idemnity_sum >= 2000) && (((viewrec.statusno = 3) || (viewrec.closed >= '10/1/2010' && viewrec.closed <= '9/30/2013'))))
+        || (((viewrec.idemnity_sum >= 300) && (((viewrec.statusno = 1) || (viewrec.statusno = 3)) || (viewrec.closed >= '10/1/2014'))))
+      ) {
+       
+          qrystrup = {};
+          let today = moment().format('MM/DD/YYYY')
+          updatestmt = { '"MedicareReportable"': -1, '"Date Marked Reportable"': today, '"TestFlag"': 202 }
+          qrystrup.updatestmt = JSON.stringify(updatestmt)
+          qrystrup.wherecol = 'ID';
+          qrystrup.whereval = viewrec.wcid;
+          qrystrup.wheresign = '=';//6;
+          qrystrup.table = '"WComp"'
+          qrystrup.database = databasepath;//'d:/firebird/data/brm/bergen.fdb'
+          const ufbk2_4 = await fastify.updatedata(qrystrup)
+          // console.log('update ufbk2', ufbk2.data)
+        
+         qrystrins = {};
+          // insertstmt = { ID: viewrec.wcid, '"LastName"': `${workerMedicare.lastname}`, '"FirstName"': `${workerMedicare.firstname}`, '"Date of Birth"': `${workerMedicare.dob}`, '"Type"': 'W', '"Found"': legacy }
+          // let nextavail
+          // nextavail = await getNextNo('');
+          nextavail++
+          insertstmt = { ID: nextavail, TID: viewrec.wcid, '"LastName"': `${workerMedicare.lastname}`, '"FirstName"': `${workerMedicare.firstname}`, '"Date of Birth"': `${workerMedicare.dob}`, '"Type"': 'W', '"Found"': legacy }
+
+          qrystrins.insertstmt = JSON.stringify(insertstmt)
+          qrystrins.table = '"WorkerMedicareNF"'
+          qrystrins.database = databasepath;//'d:/firebird/data/brm/bergen.fdb'
+          const ufbkwm2 = await fastify.insertdata(qrystrins)
+          // console.log('insertstmt', insertstmt)
+        }
+      }
+    }
+
+  }// 'WORKER
+
+}
+
+let now = moment().format('MM/DD/YYYY HH:mm:ss')// "04/09/2013 15:00:00";
+
+var ms = moment(now, "MM/DD/YYYY HH:mm:ss").diff(moment(timethen, "MM/DD/YYYY HH:mm:ss"));
+
+var d = moment.duration(ms);
+// let ti = d._data.hours + ' hr ' + d._data.minutes + ' mins ' + d._data.seconds + ' secs '
+let ti = d._data.hours + ' hr ' + d._data.minutes + ' mins ' + d._data.seconds + ' secs '
+
+// console.log('ct===================io======', ct, fbk.length)//,ttm1)
+fastify.io.sockets.emit('cms', { 'data': ct });
+if (ct === fbk.length) {
+  // console.log('finished==1===', ct, fbk.length)//,ttm1)
+ // fastify.io.sockets.emit('cms', { 'data': true });
+  //  reply.send( 'ok')// 
+  return 'ok'
+}
+  }
+}
+
+module.exports = async function (fastify, opts) {
+
+  const databasepath = `${drive}:/firebird/data/brm/${database}`
+  // const databasepath =  'd:/firebird/data/brm/bergen.fdb'
+
+  fastify.get('/',
+
+    {
+      preValidation: [fastify.authenticate],
+      schema: {
+        params: {
+          type: 'object',
+          properties: {
+            database: {
+              description: 'The database name',
+             //  summary: 'The database name',
+              type: 'string'
+            },
+            collection: {
+              description: 'The collection name',
+             //  summary: 'The collection name',
+              type: 'string'
+            }
+          }
+        },
+        querystring: {
+          type: 'object',
+          properties: {
+            filter: {
+              description: 'The filter criteria as a JSON string',
+             //  summary: 'The filter criteria',
+              type: 'string'
+            },
+            orderBy: {
+              description: 'The orderBy expression as a JSON string',
+             //  summary: 'The orderBy expression',
+              type: 'string'
+            },
+            limit: {
+              description: 'The limit ',
+             //  summary: 'The limit',
+              type: 'integer'
+            },
+            skip: {
+              description: 'The ,skip ',
+             //  summary: 'The skip',
+              type: 'integer'
+            },
+            fo: {
+              description: 'The find one flag',
+             //  summary: 'Find one',
+              type: 'boolean'
+            },
+            f: {
+              description: 'The fields object',
+             //  summary: 'The fields object',
+              type: 'string'
+            },
+            c: {
+              description: 'Count the number of documents',
+             //  summary: 'Count',
+              type: 'boolean'
+            }
+          },
+          required: []
+        },
+
+      },
+
+    },
+    async (req, reply) => {
+      // REPLCE  procedure "Worker Claim Medicare UpdateALL"
+      // console.log('start=====')
+
+      reply.send({ 'data': 'started' })// 
+      let rep = await runprocess(fastify)
+      // console.log('finished==runprocess 2= using socket==');//, ct, fbk.length)//,ttm1)
+
+      reply.send('ok')//{ 'data': true })// 
+
+    }// async 
+  )
+}
+
+
+module.exports.autoPrefix = '/apiKnex';

@@ -1,0 +1,170 @@
+
+
+img.responsive-img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  #demo-canvas {
+    display: none;
+  }
+
+  #tabs {
+    border-bottom: solid 3px #eee;
+  }
+
+  #tabs>a {
+    display: inline-block;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+
+  #tabs>a.selected {
+    background-color: #eee;
+  }
+
+  #tab-contents {
+    padding: 10px;
+  }
+
+  .wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    /* 16:9 */
+    padding-top: 25px;
+    height: 0;
+  }
+
+  .wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 117%;
+    height: 123%;
+  }
+
+  .iframe-container {
+    overflow: hidden;
+    /* 16:9 aspect ratio */
+    padding-top: 56.25%;
+    position: relative;
+  }
+
+  .iframe-container iframe {
+    border: 0;
+    height: 123%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 117%;
+  }
+  /* main */
+  /* * * the ratfactor.com stylesheet! * * */
+/* 	background: #FEFEEE; */
+/* max-width: 770px; */
+/* body {
+	margin: 40px auto;
+	max-width:1200px;
+	line-height: 1.4;
+	font-family: sans-serif;
+	color: #222;
+	padding: 0 1em;
+	background: #b6c6f3;
+	#b6c6f3;
+} */
+body {
+	margin: 22px ;
+	max-width:1600px;
+	line-height: 1.4;
+	font-family: sans-serif;
+	color: #222;
+	padding: 0 1em;
+	background:  #FFFFFF; 
+}
+article, .home-content { 
+	background: #FFFFFF; 
+	padding: 2em; 
+}
+h1 { font-size: 1.8em; color: #444; }
+h2,h3{ line-height:1.2; color: #333; }
+pre, code { 
+	font-family: monospace; 
+	background-color: #F6F6F4; 
+	color: #000; 
+} 
+pre { overflow-x: auto; padding: 1em; } 
+pre code { background-color: default; border: none; }
+table { border-collapse: collapse; }
+td, th { padding: .7em; border: 1px solid #AAA; }
+
+/* forms */
+textarea, input, button {
+	background: #FAFAFA;
+	color: #000;
+	border: 1px solid #888;
+	padding: .3em;
+	margin: .3em;
+}
+input:disabled { color: #666; }
+textarea { width: 90%; padding: .5em; display:block; }
+button { border-radius: 4px; }
+button:hover { background: #FAFAAA; }
+
+/* misc */
+header { border-bottom: 1px solid silver; padding: 0 1em 1em; background: #FFF; }
+img, figure img { max-width: 100%; }
+figcaption { font-style: italic; color: #555; }
+.quoteblock { margin-left: 40px; border-left: 1px solid #555; padding: 5px; }
+  .quoteblock blockquote { margin: 0 }
+  .quoteblock .attribution { margin-left: 40px; }
+.link-block { display: inline-block; }
+.subtitle { font-style: italic; }
+.admonitionblock { margin: 1em; }
+.admonitionblock .icon, thead { background: #F5F1DE; margin-left: 1em; }
+.admonitionblock p { margin: .3em; clear: both; }
+.bigrat img { max-width: 100% }
+.subdued { font-size: small; color: #999; }
+.centered-img div.content { text-align: center; }
+.text-center { text-align: center; } /* asciidoc output */
+.created, .updated { font-weight: bold; }
+
+/*
+ * Really skinny views
+ */
+@media only screen and (max-width: 600px) { article { padding: 2em 1em; } }
+@media only screen and (max-width: 400px) { body { padding: 0; } }
+
+/* TODO: pull the color styles out of the above and put them here
+ * to mirror the dark scheme below - but no need to put them into
+ * a media query as they'll be the default.
+ */
+
+
+/* dark scheme (light is the default) */
+@media (prefers-color-scheme: dark) {
+	body   { background:  #010; color: white; }
+	a { color: #49E; }
+	a:visited { color: #C5F; }
+	article, .home-content { background: #222; }
+	h1 { color: #BBB; }
+	h2,h3{ color: #CCC; }
+	pre, code { 
+		background-color: #333; 
+		color: #fff; 
+	} 
+	thead { #123; }
+	td, th { border: 1px solid #444; }
+	textarea, input, button {
+		background: #111;
+		color: #fff;
+		border: 1px solid #555;
+	}
+	input:disabled { color: #666; }
+	button:hover { background: #114; }
+	header { background: #000; }
+	figcaption { color: #222; }
+	blockquote { border-left: 4px solid #226; }
+	.admonitionblock .icon { background: #123; }
+	.admonitionblock .title { color: pink; }
+	.subdued { color: #666; }
+}

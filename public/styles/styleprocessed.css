@@ -1,0 +1,43 @@
+body {
+  font-family: 'Lora', serif;
+  margin: 0;
+}
+
+h1 {
+  background: #999;
+  color: white;
+  text-align: center;
+  margin: 0 0 1rem 0;
+  padding: 1rem;
+}
+
+main {
+  padding: 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.swatches {
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.color-swatch-tile {
+  width: 160px;
+  padding: 1rem;
+  box-shadow: 0 0 10px #ccc;
+  margin-right: 1rem;
+}
+
+.color-swatch {
+  height: 150px;
+}
+
+.color-name {
+  font-weight: bold;
+  margin: 0 0 3px 0;
+}
+
+.color-notes {
+  font-size: 0.9rem;
+}

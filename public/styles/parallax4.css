@@ -1,0 +1,128 @@
+
+/**
+ * Custom CSS
+ *
+ * Add this to your Tailwind CSS file,s
+ * or to a separate, custom CSS file.
+ *
+ * Update the background images to suit
+ * your project.
+ */
+ .bg-header {
+    background: url(https://picsum.photos/1920/1920/?random) center center no-repeat;
+    background-attachment: fixed;
+  }
+  .bg-header1 {
+    background: url(https://images.squarespace-cdn.com/content/v1/5829f284579fb3ac54fbad86/1635798681867-16Z9DD573IY9VG9WO2GY/TC%2Bbanner%2Bphoto%2B%2Bcopy.jpg) center center no-repeat;
+    background-attachment: fixed;
+  }
+  .bg-header2 {
+    background: url(https://images.squarespace-cdn.com/content/v1/5829f284579fb3ac54fbad86/1631816111397-B8LA87LN6OMMK1YGXPGR/TC+Ice+Cube+Stack.jpeg) center center no-repeat;
+    background-attachment: fixed;
+  }
+  .bg-header3 {
+    background: url(https://images.squarespace-cdn.com/content/v1/5829f284579fb3ac54fbad86/1631815892870-MY3C3ARFAFOP1B3HVG8P/TC+Cocktail+%2B+Tray+%2B+Tools.jpeg) center center no-repeat;
+    background-attachment: fixed;
+  }
+  .bg-header4 {
+    background: url(https://images.squarespace-cdn.com/content/v1/5829f284579fb3ac54fbad86/1631815669822-ATTVVCRCJP5XL8OD2M7H/TC+Ice+cube.jpeg) center center no-repeat;
+    background-attachment: fixed;
+  }
+  
+  .bg-header5 {
+    background: url(https://images.squarespace-cdn.com/content/v1/5829f284579fb3ac54fbad86/1635799631187-8ZEE67KYW54M7JN511CH/TC%2BWhiskey%2BGlass%2BOverhead%2BView.jpg) center center no-repeat;
+    background-attachment: fixed;
+  }
+  
+  
+  
+  .bg-quote {
+    background: url(https://picsum.photos/1600/1600/?random) center center no-repeat;
+    background-attachment: fixed;
+  }
+  .video-title {
+    background: #000;
+  }
+  
+  @media only screen and (min-width : 768px) {
+    /**
+     * Parallax
+     */
+    .parallax-container {
+      perspective: 1px;
+      transform-style: preserve-3d;
+      height: 100vh;
+      overflow-x: hidden;
+      overflow-y: scroll;
+    }
+    
+    .parallax {
+      display: flex;
+      flex: 1 0 auto;
+      position: relative;
+      height: 100vh;
+      transform: translateZ(-1px) scale(2);
+      z-index: -1;
+    }
+    
+    .content {
+      display: block;
+      position: relative;
+      background-color: white;
+      z-index: 1;
+    }
+   
+    /**
+     * Video Player
+     */
+    .video-wrapper {
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+    }
+  
+    .video-wrapper video {
+      height: auto;
+      min-height: 100%;
+      min-width: 100%;
+      position: absolute;
+        top: 50%;
+        left: 50%;
+      transform: translate(-50%,-50%);
+      width: auto;
+    }
+  
+    .video-title {
+      background-color: rgba(0,0,0, .7);
+      position: absolute;
+        top: 50%;
+        left: 50%;
+      transform: translateX(-50%);
+      z-index: 99;
+    }
+  }
+/* 
+.image-container {
+    height: 400px;
+  }
+  
+  #top-image {
+    width: 100%;
+    position: relative;
+    z-index: -1;
+    object-fit: cover;
+    border: 15px solid white;
+  }
+  
+  .container {
+    padding: 40px 0;
+    background-color: white;
+    z-index: 1;
+    width: 100%;
+  }
+  
+  .post {
+    width: 40%;
+    margin: 0 auto;
+  } */

@@ -1,0 +1,33 @@
+form .field {
+    position: relative;
+  }
+  form .fancy label {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    margin-left: 10px;
+    pointer-events: none;
+    transition: all 0.25s ease-in-out;
+  }
+  form .fancy label.focussed {
+    top: 0;
+    font-size: 10px;
+    background: white;
+    padding: 1px 4px;
+  }
+  form input {
+    padding: 10px;
+    width: 100%;
+    border: 1px solid gray;
+  }
+  form .field:not(.fancy) label.focussed {
+    color: red;
+  }
+
+  img{
+    max-width:180px;
+  }
+  input[type=file]{
+  padding:10px;
+  background:yellow;}

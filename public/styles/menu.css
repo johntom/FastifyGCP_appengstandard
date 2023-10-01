@@ -1,0 +1,243 @@
+
+ 
+  .pointer:hover {
+    cursor: pointer;
+    color:#7c2015;
+
+  }
+
+ 
+  .href {
+    color: #7c2015;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    letter-spacing: 2.6px;
+  }
+
+  /*color: #912618;*/
+  a {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size: 16px;
+
+    color: #616813;
+    text-decoration: hand;
+  }
+
+  .centertitle {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: bold;
+    /* color: #616813; */
+    color: #912618;
+    letter-spacing: 1em;
+    /* letter-spacing: 2em; */
+    text-align: center;
+  }
+
+  .centertext {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #616813;
+    letter-spacing: .5em;
+    text-align: center;
+  }
+
+  .exhHeader {
+
+    /*font-family: Verdana , Arial,  sans-serif;*/
+    /* font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; */
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 110%;
+    font-weight: bold;
+  }
+
+  .imgContent {
+    padding-left: 24px;
+    font-family: Verdana, Arial;
+    font-size: "2";
+  }
+
+  .imgTitle {
+    padding-left: 24px;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 110%;
+    font-weight: bold;
+  }
+
+  .exhTitle {
+    font-family: Verdana, Arial;
+    font-size: "2";
+  }
+
+
+/*yellow
+  a.selected {
+    background-color: #f0553f;
+    background-color: #DADADA;
+    border: 1px solid #0000ff;
+    color: #ffffff !important;
+  }
+ rgba(13,110,253,.25);
+
+
+ */
+
+ /* select around active nav*/
+.btn-check:focus+.btn, .btn:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.025rem rgb(120, 113, 64) !important;
+}
+  a.selected {
+    background-color: #f0553f;
+    background-color: #DADADA;
+    border: 1px solid #616813;
+    color: #ffffff !important;
+  }
+
+  a:active {
+    color: #616813;
+
+  }
+
+  /* purple; */
+  a.visted {
+    /* Colours color:f0f0b2; */
+
+    background-color: #616813;
+  }
+
+  a.Link {
+    /* Colours color: #ffffff; */
+
+    color: #616813;
+  }
+
+  indented {
+    padding: 0 0 0 15px;
+    margin: 0 0 18px;
+  }
+
+  indented p {
+    padding: 0 0 0 15px;
+    margin: 0 0 18px;
+  }
+
+
+
+  .hrefMenu {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #912618;
+    letter-spacing: 2.6px;
+    word-spacing: 15px;
+    padding-right: 25px;
+    text-decoration: none;
+  }
+
+  .href {
+    color: #7c2015;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    letter-spacing: 2.6px;
+
+  }
+
+  .href:hover {
+    color: #b46f25;
+
+  }
+
+  .href-v {
+    color: #7c2015;
+
+    letter-spacing: 0.3px;
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+    font-weight: normal;
+    font-size: 14px;
+    /*//1.0rem;*/
+  }
+
+  .href-v:hover {
+    color: #b46f25;
+
+    padding-right: 0px;
+  }
+
+
+
+  li {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #616813;
+    letter-spacing: 2.6px;
+    word-spacing: 15px;
+    padding-right: 25px;
+    text-decoration: none;
+  }
+
+  a {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size: 16px;
+    /* color: #912618;*/
+    color: #616813;
+
+    text-decoration: none;
+  }
+
+  /*<a href="#" class="brand-logo left" style="margin-left:40px">nina|meledandri</a>*/
+
+  .pageheading {
+    font-family: "Lucida Console", Monaco, monospace;
+    font-size: 16px;
+    font-weight: bold;
+    color: #555307;
+  }
+
+  .centertitle {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: bold;
+    /*color: #616813;*/
+    color: #912618;
+    letter-spacing: 1em;
+    /*letter-spacing: 2em;*/
+    text-align: center;
+  }
+
+  .centertext {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #616813;
+    letter-spacing: .5em;
+    text-align: center;
+  }
+
+  /*app.css*/
+  .exhHeader {
+
+    /*font-family: Verdana , Arial,  sans-serif;*/
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 110%;
+    font-weight: bold;
+  }
+
+  .btn {
+    border: none;
+    outline: none;
+    padding: 10px 16px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+  
+/*yellowyellow;*/
+  .active, .btn:hover{
+    background-color:#DADADA;
+    color:red;
+    
+    }

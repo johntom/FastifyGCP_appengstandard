@@ -1,0 +1,64 @@
+/* @import "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace/dist/themes/light.css";
+  
+body {
+  font-family: sans-serif;
+} */
+
+
+
+@import 'https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.62/dist/themes/light.css';
+
+body {
+  font: 16px sans-serif;
+  background-color: var(--sl-color-neutral-0);
+  color: var(--sl-color-neutral-900);
+  padding: 1rem;
+}
+
+sl-dropdown img {
+    width: 1.66rem;
+    height: 1rem;
+    vertical-align: middle;
+    margin-right: .25rem;
+  }
+tags-input:not(:defined) {
+    visibility: hidden;
+  }
+
+  :root {
+    --sl-color-primary-hue: 348;
+    --sl-color-danger: #f0f0f0; 
+     }
+    h1 {
+      font-size: 60px;
+    }
+    h1, h2{
+      font-family: san-serif;
+      margin-bottom: 30px;
+    }
+    html, body{
+      font-family: 'roboto' san-serif, helvetica;
+    }
+     .button--pill.button--medium {
+    border-radius: 0;
+    }
+    .card-overview {
+      border-radius: 0 !important;
+    }
+    
+    .button.button--primary {
+      background: blue;
+    }
+    
+      .alert-duration sl-alert {
+        margin-top: var(--sl-spacing-medium);
+      }
+    
+    font-family {
+      Georgia, 'Times New Roman', serif
+    }
+    .button.button--primary {
+      background: red;
+      border: red;
+    }
+

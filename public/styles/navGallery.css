@@ -1,0 +1,199 @@
+
+/* for tw menu
+h3 {
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 16px;
+  font-weight: bold;
+  color: #555307;
+}
+ul {
+  text-align: left;
+}
+li {
+  padding-left: 5px;
+  padding-right: 5px;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 155%;
+  border-radius: 1px;
+}
+
+  a.selected {
+    background-color: #f0553f;
+    background-color: #DADADA;
+    border: 1px solid #616813;
+    color: #ffffff !important;
+  }
+
+
+*/
+a.selected {
+  background-color: #f0553f;
+   background-color: yellow;
+  border: 1px solid #616813;
+  color: #ffffff !important;
+}
+a:active {
+  color: purple;
+}
+a.visted {
+  background-color: #f0f0b2;
+}
+a.Link {
+  /* Colours */
+  color: #616813;
+}
+a.visted {
+  /* Colours color:f0f0b2; */
+
+  background-color: #616813;
+}
+
+indented {
+  padding: 0 0 0 15px;
+  margin: 0 0 18px;
+}
+indented p {
+  padding: 0 0 0 15px;
+  margin: 0 0 18px;
+}
+
+
+
+.hrefMenu {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #912618;
+  letter-spacing: 2.6px;
+  word-spacing: 15px;
+  padding-right: 25px;
+  text-decoration: none;
+}
+
+.href {
+  color: #7c2015;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  /* 1416px; */
+  letter-spacing: 2.6px;
+
+}
+
+.href-v {
+  color: #7c2015;
+
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  /*//1.0rem;*/
+}
+
+
+.href:hover {
+  color: #b46f25;
+  
+}
+
+   .href-v {
+  color: #7c2015;
+  
+   letter-spacing: 0.3px;
+   text-decoration: none; 
+   font-family: "Roboto", sans-serif;
+   font-weight: normal;
+   font-size: 14px;
+   /*//1.0rem;*/
+}  
+.href-v:hover {
+  color: #b46f25;
+
+  padding-right: 0px;
+}
+  
+/* a {
+  color: #912618;
+  text-decoration: none;  hand
+}*/
+a {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 14px;
+  color: #912618;
+  /* text-decoration: hand; */
+  text-decoration: none;
+}    
+
+
+.pageheading {
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 16px;
+  /* 20 */
+  font-weight: bold;
+  color: #30302e;
+}
+.centertitle {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: bold;
+  /*color: #616813;*/
+    color: #912618 ;
+  letter-spacing: 1em;
+  /*letter-spacing: 2em;*/
+  text-align: center;
+}
+.centertext {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  color: #616813;
+  letter-spacing: .5em;
+  text-align: center;
+}
+
+/*app.css*/
+.exhHeader {
+
+    /*font-family: Verdana , Arial,  sans-serif;*/
+    font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 100%;
+    font-weight: bold;
+}
+.pointer:hover {
+  cursor: pointer;
+  color:#7c2015;
+
+}
+
+.imgContent {
+  padding-left: 24px;
+  font-family: Verdana, Arial;
+  font-size: "2";
+}
+
+.imgTitle {
+  padding-left: 24px;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 110%;
+  font-weight: bold;
+}
+
+.exhTitle {
+  font-family: Verdana, Arial;
+  font-size: "2";
+}
+.btn {
+  border: none;
+  outline: none;
+  padding: 10px 16px;
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+/*yellowyellow;*/
+.active, .btn:hover{
+  background-color:#DADADA;
+  color:red;
+  
+  }
